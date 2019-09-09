@@ -2,23 +2,40 @@
   <div id="app">
     <!--<img src="./assets/logo.png">-->
     <router-view/>
-    <dbdh></dbdh>
 
+		<dbdh v-if="Dbdh"></dbdh>
   </div>
 </template>
 
 <script>
 
+
+
+
 import  dbdh from "@/components/bottom/Dibu_dh"	//底部导航
-
-
-	
 export default {
   name: 'App',
+  data(){
+  	return{
+  		Dbdh : true 
+  	}
+  },
   components:{
-  	dbdh
+				dbdh
+  },
+  watch:{   //监听
+  	'$route':function(a){
+//		console.log(a)
+  		if(a.path == "/faxian" || a.path=="/shouye" || a.path == "/gwc" || a.path == "/zhongx"){
+  			this.Dbdh = true 
+  		}else{
+  			this.Dbdh = false
+  		}
+  	}
+  },
+  beforeMount(){   //即将挂载
+  	this.$router.push("/denglu")
   }
-  
   
   
 }
@@ -40,9 +57,9 @@ export default {
 html,
 body,
 #app{
-	height: 100%;
-	width: 100%;
-	background-color: rgba(220,220,220,0.1);
+	/*height: 100%;
+	width: 100%;*/
+	/*background-color: rgba(220,220,220,0.1);*/
 }
 
 @media only screen and (max-width:400px) and (min-width: 320px){html,body{font-size: 11.25px;}}
